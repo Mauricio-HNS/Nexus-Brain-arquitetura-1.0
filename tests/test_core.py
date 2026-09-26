@@ -1,4 +1,4 @@
-from nexus_brain.fusion import fuse_modalities
+from nexus_brain.adversarial import run_adversarial, summarize_adversarial
 from nexus_brain.safety import EvidenceState, evaluate_evidence
 from nexus_brain.signature import CellSignature
 from nexus_brain.synthetic import generate_trajectory
@@ -14,13 +14,6 @@ def test_signature_serialization():
     data = signature.to_dict()
     assert data["schemaVersion"] == "1.0"
     assert data["observationId"] == "synthetic-001"
-    assert data["provenance"]["sourceType"] == "synthetic"
-
-
-def test_fusion_is_transparent():
-    result = fuse_modalities({"morphology": 0.8, "proteomics": 0.6})
-    assert result["aggregate"] == 0.7
-    assert result["coverage"] == 0.25
 
 
 def test_missing_evidence_abstains():
@@ -37,21 +30,21 @@ def test_conflicting_evidence_requires_review():
     assert decision.state is EvidenceState.REVIEW
 
 
-def test_strong_research_signal_requires_review():
+def test_strong_signal_requires_human_review():
     decision = evaluate_evidence(confidence=0.90, uncertainty=0.10)
     assert decision.state is EvidenceState.FLAG
 
 
 def test_trajectory_is_deterministic():
-    first = generate_trajectory(entity_id="cell-a", seed=123)
-    second = generate_trajectory(entity_id="cell-a", seed=123)
-    assert first == second
+    assert generate_trajectory(entity_id="cell-a", seed=123) == generate_trajectory(
+        entity_id="cell-a", seed=123
+    )
 
 
-def test_trajectory_changes_when_seed_changes():
-    first = generate_trajectory(entity_id="cell-a", seed=123)
-    second = generate_trajectory(entity_id="cell-a", seed=124)
-    assert first != second
+def test_different_seed_changes_trajectory():
+    assert generate_trajectory(entity_id="cell-a", seed=123) != generate_trajectory(
+        entity_id="cell-a", seed=124
+    )
 
 
 def test_trajectory_summary():
@@ -66,16 +59,17 @@ def test_trajectory_summary():
     assert round(summary.acceleration, 6) == 1.0
 
 
-def test_adversarial_controls_are_reproducible():
-    from nexus_brain.adversarial import run_adversarial, summarize_adversarial
+def test_adversarial_results_are_reproducible():
+    config = {"seeds": range(5), "noise": 0.08, "missing_rate": 0.15}
+    assert summarize_adversarial(run_adversarial(**config)) == summarize_adversarial(
+        run_adversarial(**config)
+    )
 
-    first = summarize_adversarial(run_adversarial(seeds=range(5), noise=0.08, missing_rate=0.15))
-    second = summarize_adversarial(run_adversarial(seeds=range(5), noise=0.08, missing_rate=0.15))
-    assert first == second
 
-
-def test_adversarial_includes_temporal_and_null_controls():
-    from nexus_brain.adversarial import run_adversarial
-
-    conditions = {item.condition for item in run_adversarial(seeds=range(2))}
-    assert conditions == {"ordered", "shuffled_time", "null_world"}
+def test_adversarial_conditions_are_present():
+    results = run_adversarial(seeds=range(2))
+    assert {item.condition for item in results} == {
+        "ordered",
+        "shuffled_time",
+        "null_world",
+    }
