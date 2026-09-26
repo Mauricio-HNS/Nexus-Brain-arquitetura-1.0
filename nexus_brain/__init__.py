@@ -1,4 +1,4 @@
-"""Nexus Brain research core."""
+"""Nexus Brain temporal research core."""
 
-__version__ = "0.2.0"
-__research_direction__ = "cell-state trajectory intelligence"
+__version__ = "1.0.0"
+__research_direction__ = "temporal cell-state intelligence"
