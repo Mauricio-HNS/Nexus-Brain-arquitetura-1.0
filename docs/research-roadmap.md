@@ -1,79 +1,46 @@
-# Nexus Brain Research Roadmap
+# Research Roadmap
 
-## Milestone 001 — Cell State Trajectory
+## Stage 1 — Adversarial synthetic validation
 
-**Objective:** establish whether temporal information adds measurable predictive value over a snapshot-only representation.
+Current stage.
 
-Deliverables:
+Establish whether temporal information survives shuffled-time and null-world controls.
 
-- deterministic synthetic generator;
-- trajectory representation;
-- snapshot baseline;
-- trajectory baseline;
-- reproducible benchmark;
-- explicit future-label isolation;
-- noise and missing-data tests.
+## Stage 2 — Same snapshot, different trajectory
 
-## Milestone 002 — Controlled multimodal dynamics
+Construct controlled cases where the current state is intentionally similar while preceding trajectories differ.
 
-Introduce multiple synthetic modalities with different signal quality and correlation structures.
+Test whether trajectory history contains information that a snapshot cannot recover.
 
-Questions:
+## Stage 3 — Multimodal dynamics
 
-- Which modalities contribute independent information?
-- How does the system behave when one modality becomes unreliable?
-- Does temporal fusion remain useful when measurements are noisy?
+Introduce modalities with different noise, missingness and correlation structures.
 
-## Milestone 003 — Public research datasets
+Test whether temporal information remains useful when individual modalities become unreliable.
 
-Move from synthetic observations to authorized/public datasets.
+## Stage 4 — Real longitudinal datasets
 
-Requirements:
+Move to authorized public datasets with real repeated biological measurements and independent ground truth.
 
-- documented provenance;
-- licensing review;
-- patient-level split where applicable;
-- no leakage across train/validation/test;
-- explicit dataset versioning.
+Requirements include documented provenance, licensing, subject-level separation where applicable, and strict leakage controls.
 
-## Milestone 004 — Longitudinal validation
+## Stage 5 — Independent biological validation
 
-Test whether trajectory representations generalize across:
+Test across datasets, instruments, acquisition protocols and laboratories.
 
-- individuals;
-- instruments;
-- acquisition protocols;
-- laboratories;
-- biological populations.
+## Stage 6 — Physical-system research
 
-## Milestone 005 — Laboratory integration
-
-Connect validated observation adapters to real measurements.
-
-The computational hypothesis must survive independent biological measurements before any hardware concept is considered.
-
-## Milestone 006 — Nexus Cell systems research
-
-Only after computational and laboratory evidence supports the approach should research address:
-
-- high-throughput cell handling;
-- microfluidics;
-- extracorporeal circulation;
-- real-time analysis;
-- selective intervention concepts.
-
-No stage in this roadmap constitutes clinical validation.
-
----
+Only after computational and biological evidence supports the approach should the project investigate instrumentation, microfluidics or extracorporeal systems.
 
 ## Kill criteria
 
-Nexus should be stopped or substantially redesigned if:
+Stop or redesign the approach if:
 
-1. trajectory information consistently adds no useful signal;
-2. apparent gains depend on leakage;
-3. gains disappear under realistic noise;
-4. results cannot be independently reproduced;
-5. the approach does not generalize beyond the synthetic generator.
+1. temporal history adds no reproducible information;
+2. apparent gains survive time destruction;
+3. the null world produces comparable gains;
+4. results depend on leakage;
+5. results fail under realistic noise;
+6. independent reproduction fails.
 
-This is deliberate. The project is designed to earn its continuation through evidence.
+The project earns continuation through evidence.
