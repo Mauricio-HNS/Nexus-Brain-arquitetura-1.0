@@ -1,2 +1,3 @@
-# Nexus Brain 0.1 — intentionally minimal baseline
-# ML dependencies will be introduced with reproducible experiments.
+# Nexus Brain research core
+# Runtime dependencies are intentionally minimal.
+# pytest is installed by CI for the test suite.
