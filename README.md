@@ -1,75 +1,130 @@
 # 🧬 Nexus Brain
 
-### **Cell Intelligence • Multimodal AI • Computational Biomedicine**
+### Cell-State Intelligence • Multimodal AI • Longitudinal Biology
 
-> **A research architecture for turning heterogeneous cellular measurements into an auditable, longitudinal Cell Signature.**
+> **A research architecture for studying whether the trajectory of a cell contains predictive information that is invisible in an isolated snapshot.**
 
 [![Status](https://img.shields.io/badge/status-research%20prototype-0b7285)](#status)
-[![Architecture](https://img.shields.io/badge/architecture-v1.0-1f2937)](#architecture)
+[![Research](https://img.shields.io/badge/research-cell--state%20trajectory-6d28d9)](#the-core-hypothesis)
 [![Python](https://img.shields.io/badge/python-3.12-3776ab)](#technology)
-[![Safety](https://img.shields.io/badge/AI-safety--first-2e7d32)](#safety)
+[![Safety](https://img.shields.io/badge/AI-abstention--first-2e7d32)](#safety)
 
 ---
 
-## The idea
+## The new direction
 
-**Nexus Brain** is the computational core of the broader **Nexus Bio** research concept.
+**Nexus Brain** is the computational research core of the broader **Nexus Cell** concept.
 
-The central hypothesis is simple:
+The project is no longer centered on building another generic multimodal classifier.
 
-> A biological state may be better characterized by the **convergence of multiple independent signals** than by any single measurement.
+Its central hypothesis is:
 
-Nexus Brain explores a computational framework that can combine morphology, molecular measurements, physical properties and longitudinal observations into a structured **Cell Signature**, then apply multimodal AI while explicitly representing uncertainty.
+> **A cell is not only a state. It is a trajectory.**
 
-The long-term research direction is an **extracorporeal biomedical platform** capable of continuously analyzing blood and, only after rigorous biological and clinical validation, supporting selective actions against validated targets.
+A snapshot asks:
+
+> **What is this cell?**
+
+Nexus asks:
+
+> **How is this cell changing, and can its multimodal trajectory reveal a meaningful state transition before the final state becomes obvious?**
+
+That is the scientific question we intend to test.
 
 **This repository is research software. It is not a medical device, diagnostic system, or validated treatment.**
 
 ---
 
-## 🧠 Architecture
+## 🔬 The core hypothesis
 
-```text
-                         NEXUS BRAIN
-                              │
-             ┌────────────────┼────────────────┐
-             │                │                │
-             ▼                ▼                ▼
-       CELL INPUT        KNOWLEDGE        BASELINE
-         ENGINE            ENGINE          ENGINE
-             │                │                │
-             └────────────────┼────────────────┘
-                              ▼
-                       FEATURE ENGINE
-                              │
-                              ▼
-                       CELL SIGNATURE
-                              │
-                              ▼
-                       MULTIMODAL AI
-                              │
-                    ┌─────────┴─────────┐
-                    ▼                   ▼
-                 UNKNOWN             SIGNAL
-                    │                   │
-                 OBSERVE          SECONDARY ANALYSIS
-                                        │
-                                        ▼
-                                  SAFETY ENGINE
-                                        │
-                                        ▼
-                                  HUMAN REVIEW
+A conventional pipeline often looks like:
+
+```
+OBSERVATION → CLASSIFICATION
 ```
 
-The architecture deliberately separates **measurement**, **representation**, **inference**, and **interpretation**.
+Nexus investigates:
+
+```
+OBSERVATION T0
+      ↓
+OBSERVATION T1
+      ↓
+OBSERVATION T2
+      ↓
+OBSERVATION T3
+      ↓
+CELL TRAJECTORY
+      ↓
+STATE TRANSITION SIGNAL
+```
+
+The important object is therefore not only the **Cell Signature**, but the **Cell State Trajectory**:
+
+```
+Cell Signature
+      +
+time
+      +
+change
+      +
+multimodal evidence
+      ↓
+CELL STATE TRAJECTORY
+```
+
+The first scientific milestone is not to claim that Nexus can detect disease.
+
+It is to determine whether this representation contains information that isolated snapshots do not.
 
 ---
 
-## 🔬 Cell Signature
+## 🧠 Architecture
 
-The fundamental data object is a versioned multimodal representation:
+```
+                         NEXUS BRAIN
+                              │
+                 ┌────────────┴────────────┐
+                 │                         │
+                 ▼                         ▼
+          CELL SIGNATURE            TEMPORAL ENGINE
+                 │                         │
+                 └────────────┬────────────┘
+                              ▼
+                    TRAJECTORY BUILDER
+                              │
+                              ▼
+                    STATE TRANSITION MAP
+                              │
+                  ┌───────────┴───────────┐
+                  ▼                       ▼
+             STABLE STATE          TRANSITION SIGNAL
+                                          │
+                              ┌───────────┴───────────┐
+                              ▼                       ▼
+                         UNCERTAINTY              BASELINES
+                              │                       │
+                              └───────────┬───────────┘
+                                          ▼
+                                    SAFETY ENGINE
+                                          │
+                                          ▼
+                                   HUMAN REVIEW
+```
 
-```text
+The architecture deliberately separates:
+
+**measurement → representation → trajectory → inference → validation**
+
+No component is allowed to silently turn a research signal into a clinical conclusion.
+
+---
+
+## 🧬 Cell Signature
+
+The Cell Signature remains the multimodal representation of an observation:
+
+```
 CellSignature
 │
 ├── morphology
@@ -79,138 +134,118 @@ CellSignature
 ├── genomics
 ├── metabolism
 ├── physical properties
-├── temporal features
+├── temporal context
 └── provenance / uncertainty
 ```
 
-The important idea is **evidence fusion**, not a single "cancer detector".
+But Nexus adds another layer:
 
-No isolated feature is assumed to be sufficient for a clinical conclusion.
-
----
-
-## 🔭 Research pipeline
-
-```text
-RAW OBSERVATION
-       │
-       ▼
-QUALITY CONTROL
-       │
-       ▼
-FEATURE EXTRACTION
-       │
-       ▼
-CELL SIGNATURE
-       │
-       ▼
-MULTIMODAL FUSION
-       │
-       ▼
-UNCERTAINTY ESTIMATION
-       │
-       ├───────────────┐
-       ▼               ▼
-   INSUFFICIENT     RESEARCH SIGNAL
-       │               │
-       ▼               ▼
-    ABSTAIN       SECONDARY ANALYSIS
-                       │
-                       ▼
-                  HUMAN REVIEW
+```
+SIGNATURE T0 ──┐
+SIGNATURE T1 ──┤
+SIGNATURE T2 ──┼──→ TRAJECTORY
+SIGNATURE T3 ──┤
+SIGNATURE T4 ──┘
 ```
 
-### The first scientific question
+---
 
-**Can multimodal cellular representations provide more reproducible information about cellular state than individual modalities alone?**
+## 🔭 The research question
 
-That is the hypothesis we can actually test computationally.
+> **Can multimodal temporal representations detect a controlled cellular state transition earlier or more reliably than isolated observations?**
+
+This is falsifiable.
+
+A meaningful result would require the trajectory model to outperform appropriate snapshot baselines under controlled experiments, while preserving calibration and abstention behavior.
+
+A negative result is also scientifically useful: it would tell us that the proposed representation does not provide the expected additional information under the tested conditions.
 
 ---
 
-## 🧪 Research strategy
+## 🧪 Experiment 001 — Cell State Trajectory
 
-### Phase 0 — Synthetic world
+The first experiment is deliberately small.
 
-Build a controlled environment with synthetic Cell Signatures.
+We create synthetic cells with known hidden states and generate a sequence of observations.
 
-- generate heterogeneous cellular populations;
-- introduce controlled perturbations;
-- test fusion algorithms;
-- measure calibration;
-- quantify false positives and false negatives.
-
-### Phase 1 — Curated datasets
-
-Evaluate the architecture against authorized/public research datasets while preserving provenance and preventing patient leakage between train/test populations.
-
-### Phase 2 — Multimodal intelligence
-
-Introduce modality-specific models and a fusion layer capable of abstaining when evidence is insufficient or contradictory.
-
-### Phase 3 — Longitudinal intelligence
-
-Model trajectories rather than isolated snapshots:
-
-```text
+```
 T0 → T1 → T2 → T3 → T4
-          │
-          └── change detection
+│                   │
+│                   └── hidden future state
+│
+└── observations available to the model
 ```
 
-### Phase 4 — Laboratory integration
+The model must not see the future label.
 
-Connect validated laboratory measurements through stable adapters and compare model outputs against independent expert annotations.
+We compare:
 
-### Phase 5 — Future extracorporeal research
+1. **Snapshot baseline** — uses only the current observation.
+2. **Trajectory baseline** — uses the history of observations.
+3. **Missing-data conditions**.
+4. **Noise conditions**.
+5. **Distribution-shift conditions**.
 
-Only if previous evidence supports it, investigate interfaces with microfluidic and extracorporeal systems.
+The experiment asks whether temporal information actually adds measurable signal.
 
 ---
 
-## 🛡️ Safety by design
+## 🧱 Research layers
 
-Nexus Brain is intentionally conservative.
+### Layer 1 — Measurement representation
 
-```text
-NO EVIDENCE
-    ↓
- UNKNOWN
+Convert heterogeneous observations into reproducible signatures.
 
-WEAK EVIDENCE
-    ↓
- OBSERVE
+### Layer 2 — State representation
 
-CONFLICTING EVIDENCE
-    ↓
- REVIEW
+Represent the current cellular state without assuming a clinical label.
 
-STRONG RESEARCH SIGNAL
-    ↓
- FLAG FOR HUMAN REVIEW
-```
+### Layer 3 — Trajectory representation
 
-Core principles:
+Measure how the state changes over time.
 
-1. **Unknown is not abnormal.**
-2. **Abnormal is not automatically malignant.**
-3. **Model confidence is not clinical truth.**
-4. **No autonomous therapeutic action.**
-5. **Conflicting modalities reduce confidence.**
-6. **Every inference retains provenance and model version.**
-7. **Experiments must be reproducible.**
+### Layer 4 — Transition detection
+
+Identify statistically meaningful changes in the trajectory.
+
+### Layer 5 — Validation
+
+Test against controlled ground truth and independent datasets.
+
+Only after these layers produce reproducible evidence should biological or hardware integration become a serious engineering target.
+
+---
+
+## 🛡️ Safety principles
+
+Nexus is **abstention-first**.
+
+- Unknown is not abnormal.
+- Abnormal is not automatically malignant.
+- A model score is not biological truth.
+- A trajectory signal is not a diagnosis.
+- Conflicting evidence lowers confidence.
+- Missing data must remain visible.
+- Every inference retains provenance and version information.
+- No autonomous therapeutic action exists in the architecture.
+- Synthetic experiments are software validation, not clinical evidence.
 
 ---
 
 ## 🧱 Repository structure
 
-```text
+```
 Nexus-Brain-arquitetura-1.0/
 │
 ├── nexus-brain/
-│   ├── signature.py       # Cell Signature domain model
-│   ├── fusion.py          # Multimodal fusion baseline
-│   └── safety.py          # Conservative evidence state machine
+│   ├── signature.py
+│   ├── fusion.py
+│   ├── trajectory.py
+│   ├── synthetic.py
+│   └── safety.py
+│
+├── experiments/
+│   └── 001_cell_state_trajectory.py
 │
 ├── tests/
 │   └── test_core.py
@@ -219,75 +254,75 @@ Nexus-Brain-arquitetura-1.0/
 │   ├── README.md
 │   ├── architecture.md
 │   ├── scientific-framework.md
-│   ├── cell-signature.schema.json
+│   ├── experimental-protocol.md
 │   ├── research-roadmap.md
-│   └── safety-model.md
+│   ├── safety-model.md
+│   └── cell-signature.schema.json
 │
-├── .github/workflows/
-│   └── quality.yml
-│
-└── requirements.txt
+└── .github/workflows/
+    └── quality.yml
 ```
 
 ---
 
 ## ⚙️ Technology
 
-The architecture is deliberately modular.
+The scientific core is intentionally lightweight at this stage.
 
 | Layer | Direction |
 |---|---|
-| Core research | Python |
-| AI / ML | PyTorch |
-| API | FastAPI |
+| Research core | Python |
+| Future ML | PyTorch |
+| Experiment APIs | FastAPI |
 | Production services | C# / .NET |
 | Data | PostgreSQL |
 | Streaming | Kafka-compatible architecture |
 | Research UI | React |
 | Infrastructure | Docker |
-| Experiment tracking | Versioned datasets + models |
+| Reproducibility | versioned code, seeds, datasets and artifacts |
 
-Technology choices can evolve without changing the scientific data contracts.
+Dependencies should be introduced only when they provide measurable scientific value.
 
 ---
 
 ## 📚 Scientific standard
 
-The project distinguishes five layers of evidence:
+Nexus follows:
 
-**Measurement → Feature → Signature → Inference → Biological interpretation**
+**Measurement → Feature → Signature → Trajectory → Inference → Validation → Biological interpretation**
 
-A convincing demo is not proof.
+The project explicitly rejects the idea that:
 
-A model score is not proof.
+- a polished demo is proof;
+- synthetic accuracy is clinical evidence;
+- correlation automatically means causation;
+- model confidence equals biological certainty.
 
-Synthetic data is not proof.
-
-Correlation is not proof.
-
-The project therefore prioritizes **reproducibility, independent validation, uncertainty estimation, external replication, and transparent baselines**.
+The goal is to build experiments that can prove the idea wrong.
 
 ---
 
 ## 🚧 Status
 
-**Architecture / research prototype — v1.0**
+**Research architecture — trajectory-first redesign**
 
 Current milestone:
 
-> **Build the computational brain before attempting to design the physical machine.**
+> **Experiment 001: Cell State Trajectory**
 
-The next milestone is the **Synthetic Cell Laboratory**: a controlled simulator that generates Cell Signatures and allows the entire inference pipeline to be benchmarked before biological integration.
+The immediate objective is to establish whether temporal multimodal information adds measurable predictive value over a snapshot-only baseline.
 
 ---
 
-## 🌐 Long-term vision
+## 🌐 Long-term Nexus Cell vision
 
-Nexus Brain is intended to be a **scientifically testable computational foundation** that researchers can evaluate, challenge, reproduce and potentially connect to validated biological measurement technologies in the future.
+If the computational hypothesis survives rigorous testing, the architecture could eventually become the intelligence layer behind validated biological measurement systems.
 
-The objective is not to claim that the future machine already exists.
+Only then would it make sense to investigate laboratory instrumentation, microfluidics, or extracorporeal platforms.
 
-The objective is to build enough of the **brain** that scientists can determine what is possible.
+The machine is not the starting point.
+
+**The scientific brain is.**
 
 ---
 
