@@ -21,8 +21,5 @@ jobs:
       - name: Install test runner
         run: python -m pip install --upgrade pip pytest
 
-      - name: Install test runner
-        run: python -m pip install --upgrade pip pytest
-
       - name: Run tests
         run: python -m pytest -q
