@@ -1,84 +1,128 @@
 # Nexus Brain Architecture
 
-## 1. System layers
+## 1. Architectural thesis
 
-### Data layer
-Receives observations from laboratory instruments, curated datasets, or simulations. Raw observations must retain provenance and acquisition metadata.
+Nexus is built around a distinction:
 
-### Feature layer
-Converts heterogeneous observations into normalized features while preserving the original measurements.
+> **A cellular state is an observation. A cellular trajectory is a sequence of observations.**
 
-### Signature layer
-Builds a versioned `CellSignature` from multimodal features.
+The architecture therefore treats time as a first-class dimension rather than an optional metadata field.
 
-### Intelligence layer
-Runs modality-specific models and a fusion model. Models must expose confidence/uncertainty and version information.
+## 2. System layers
 
-### Temporal layer
-Compares observations over time to detect meaningful changes rather than relying only on a single snapshot.
+### Layer A — Observation
 
-### Safety layer
-Applies conservative rules, detects conflicts, prevents unsupported autonomous actions, and records every decision path.
+Raw or curated measurements enter the system through an observation adapter.
 
-### Human review layer
-Presents evidence, provenance, confidence, and model explanations to qualified researchers/clinicians.
-
-## 2. Decision state machine
-
-```text
-INPUT
-  |
-  v
-OBSERVE
-  |
-  v
-FEATURE EXTRACTION
-  |
-  v
-SIGNATURE BUILD
-  |
-  v
-MULTIMODAL FUSION
-  |
-  +----> insufficient evidence ----> UNKNOWN / OBSERVE
-  |
-  +----> conflicting evidence ----> REVIEW
-  |
-  +----> validated research pattern -> FLAG FOR REVIEW
+```
+instrument / dataset / simulator
+            ↓
+       observation
 ```
 
-The state machine intentionally has no autonomous therapeutic branch.
+### Layer B — Cell Signature
 
-## 3. Design requirements
+Each observation is converted into a versioned multimodal representation.
 
-- deterministic preprocessing where possible;
-- versioned schemas;
-- model version tracking;
-- dataset provenance;
-- reproducible experiments;
-- calibration and uncertainty evaluation;
-- explicit unknown state;
-- audit logs;
-- separation between research inference and clinical decision-making.
+```
+morphology
+surface markers
+proteomics
+transcriptomics
+genomics
+metabolism
+physical properties
+temporal context
+        ↓
+CellSignature
+```
 
-## 4. Future interfaces
+### Layer C — Trajectory
 
-The architecture should expose stable contracts for:
+Multiple signatures belonging to the same tracked research entity are ordered in time.
 
-```text
+```
+S0 → S1 → S2 → S3 → S4
+```
+
+The trajectory engine calculates change rather than only absolute state.
+
+### Layer D — State Transition
+
+The system searches for meaningful changes in the representation:
+
+```
+stable → stable → changing → changing → new state
+```
+
+A transition signal is a research output, not a diagnosis.
+
+### Layer E — Baselines
+
+Every new approach must be compared with simpler alternatives:
+
+- current snapshot only;
+- individual modality;
+- pairwise fusion;
+- trajectory representation.
+
+The trajectory hypothesis is only interesting if the additional complexity produces measurable information.
+
+### Layer F — Safety
+
+Uncertainty, missing modalities, conflicting measurements, provenance and model versions remain attached to every inference.
+
+### Layer G — Human review
+
+Researchers receive evidence and trajectory context rather than a black-box conclusion.
+
+## 3. Decision flow
+
+```
+OBSERVATION
+    ↓
+QUALITY CONTROL
+    ↓
+CELL SIGNATURE
+    ↓
+TEMPORAL ORDERING
+    ↓
+TRAJECTORY
+    ↓
+STATE-CHANGE ANALYSIS
+    │
+    ├── insufficient evidence → UNKNOWN
+    ├── unstable/conflicting → REVIEW
+    └── reproducible research signal → FLAG FOR REVIEW
+```
+
+## 4. Scientific invariants
+
+1. Future observations cannot leak into past prediction.
+2. Ground-truth labels must remain separate from model inputs.
+3. Snapshot baselines must be reported.
+4. Random seeds must be recorded.
+5. Missing data must be represented explicitly.
+6. Distribution shift must be tested.
+7. Model confidence must be calibrated.
+8. Every result must be reproducible from versioned inputs.
+
+## 5. Future interfaces
+
+```
 Laboratory Instrument
-        |
-        v
+        ↓
 Observation Adapter
-        |
-        v
+        ↓
 Cell Observation
-        |
-        v
+        ↓
 Cell Signature
-        |
-        v
-Inference Pipeline
+        ↓
+Trajectory Engine
+        ↓
+Research Inference
+        ↓
+Human Review
 ```
 
-Future hardware must not require the AI core to know how a particular instrument physically operates.
+Hardware remains outside the computational core until the research evidence justifies integration.
