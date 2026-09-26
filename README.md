@@ -190,6 +190,20 @@ The experiment asks whether temporal information actually adds measurable signal
 
 ---
 
+## 🧪 Experiment 003 — Adversarial Synthetic World
+
+Experiment 003 attacks the hypothesis with three controls:
+
+- **Ordered world** — preserves temporal order.
+- **Shuffled-time control** — destroys temporal order while keeping the same observations.
+- **Null world** — removes the underlying progressing trajectory.
+
+Noise and missing observations are introduced explicitly. A useful temporal effect should weaken when order is destroyed and should not systematically appear in the null world.
+
+See `docs/experiment-003.md`.
+
+---
+
 ## 🧱 Research layers
 
 ### Layer 1 — Measurement representation
@@ -237,7 +251,8 @@ Nexus is **abstention-first**.
 ```
 Nexus-Brain-arquitetura-1.0/
 │
-├── nexus-brain/
+├── nexus_brain/
+│   ├── __init__.py
 │   ├── signature.py
 │   ├── fusion.py
 │   ├── trajectory.py
@@ -245,7 +260,9 @@ Nexus-Brain-arquitetura-1.0/
 │   └── safety.py
 │
 ├── experiments/
-│   └── 001_cell_state_trajectory.py
+│   ├── 001_cell_state_trajectory.py
+│   ├── 002_trajectory_benchmark.py
+│   └── 003_adversarial_world.py
 │
 ├── tests/
 │   └── test_core.py
@@ -308,9 +325,11 @@ The goal is to build experiments that can prove the idea wrong.
 
 Current milestone:
 
-> **Experiment 001: Cell State Trajectory**
+> **Experiment 003: Adversarial Synthetic World**
 
-The immediate objective is to establish whether temporal multimodal information adds measurable predictive value over a snapshot-only baseline.
+The project is now testing whether any trajectory advantage survives shuffled-time and null-world controls, while explicitly measuring the effects of noise and missing observations.
+
+The immediate objective is not to maximize a score. It is to determine whether the temporal hypothesis survives attempts to falsify it.
 
 ---
 
