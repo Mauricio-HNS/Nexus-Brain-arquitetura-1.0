@@ -1,24 +1,22 @@
 # Nexus Brain Documentation
 
-This directory contains the scientific and engineering specification of Nexus Brain.
+## Research map
 
 | Document | Purpose |
 |---|---|
-| [Architecture](architecture.md) | System layers, contracts and decision flow |
-| [Cell Signature](cell-signature.schema.json) | Versioned multimodal data contract |
-| [Research Roadmap](research-roadmap.md) | Staged path from simulation to laboratory research |
-| [Safety Model](safety-model.md) | Uncertainty, abstention and human-review principles |
+| [Architecture](architecture.md) | Trajectory-first system architecture |
+| [Scientific Framework](scientific-framework.md) | Hypothesis, null hypothesis and evidence standard |
+| [Experiment 001](experimental-protocol.md) | First falsifiable computational experiment |
+| [Research Roadmap](research-roadmap.md) | Milestones and kill criteria |
+| [Safety Model](safety-model.md) | Uncertainty, abstention and provenance |
+| [Cell Signature](cell-signature.schema.json) | Versioned multimodal observation contract |
 
-## Scientific posture
+## Project philosophy
 
-Nexus Brain is intentionally hypothesis-driven. Every proposed capability is treated as a research question until supported by reproducible evidence.
+Nexus is not built around the assumption that the idea must work.
 
-The project separates:
+It is built around the question:
 
-- biological hypothesis;
-- measurement capability;
-- computational inference;
-- experimental evidence;
-- clinical interpretation.
+> **Can we produce evidence that the idea works better than simpler alternatives?**
 
-This separation is essential for scientific traceability.
+The repository therefore treats negative results, failed experiments and reproducibility as first-class research outputs.
