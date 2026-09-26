@@ -64,3 +64,18 @@ def test_trajectory_summary():
     assert round(summary.displacement, 6) == 3.0
     assert round(summary.velocity, 6) == 1.5
     assert round(summary.acceleration, 6) == 1.0
+
+
+def test_adversarial_controls_are_reproducible():
+    from nexus_brain.adversarial import run_adversarial, summarize_adversarial
+
+    first = summarize_adversarial(run_adversarial(seeds=range(5), noise=0.08, missing_rate=0.15))
+    second = summarize_adversarial(run_adversarial(seeds=range(5), noise=0.08, missing_rate=0.15))
+    assert first == second
+
+
+def test_adversarial_includes_temporal_and_null_controls():
+    from nexus_brain.adversarial import run_adversarial
+
+    conditions = {item.condition for item in run_adversarial(seeds=range(2))}
+    assert conditions == {"ordered", "shuffled_time", "null_world"}
