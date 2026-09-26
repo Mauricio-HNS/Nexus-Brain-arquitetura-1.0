@@ -1,18 +1,50 @@
 # Nexus Scientific Framework
 
-## Research question
+## Central question
 
-Can heterogeneous cellular measurements be fused into a reproducible representation that improves detection of meaningful cellular states compared with any single modality?
+> **Can the temporal trajectory of a multimodal cellular representation provide predictive information about a future cellular state that is not available from an isolated snapshot?**
 
-## Working hypothesis
+This is the central Nexus hypothesis.
 
-A Cell Signature that combines morphology, molecular measurements, physical properties and longitudinal context may contain information that is not captured by an isolated measurement.
+## Why this question matters
 
-This is a hypothesis to test, not an established clinical fact.
+Many biological measurements are snapshots. A snapshot can describe what was observed at a particular moment.
+
+Nexus asks whether the **direction and rate of change** across repeated observations carry additional information.
+
+Conceptually:
+
+```
+SNAPSHOT
+What is observed now?
+
+TRAJECTORY
+How is the observed state changing?
+```
+
+The second question is not automatically more informative. That is exactly what the experiment must establish.
+
+## Falsifiable hypothesis
+
+Given a sequence:
+
+```
+X0, X1, X2, ..., Xt
+```
+
+where each X is a multimodal Cell Signature, a trajectory representation may predict a controlled future state better than a model receiving only Xt.
+
+The hypothesis is supported only if the difference survives appropriate baselines, repeated seeds, noise tests and distribution-shift evaluation.
+
+## Null hypothesis
+
+Temporal history provides no additional predictive information beyond the current snapshot under the tested data-generating process.
+
+The project must actively attempt to reproduce this null.
 
 ## Evidence hierarchy
 
-```text
+```
 RAW MEASUREMENT
       ↓
 QUALITY CONTROL
@@ -21,6 +53,8 @@ FEATURE
       ↓
 CELL SIGNATURE
       ↓
+TRAJECTORY
+      ↓
 MODEL INFERENCE
       ↓
 VALIDATION
@@ -28,24 +62,47 @@ VALIDATION
 BIOLOGICAL INTERPRETATION
 ```
 
-## What would constitute meaningful progress?
+## Minimum evidence standard
 
-1. Reproducible measurements.
-2. Independent validation datasets.
-3. Transparent baselines.
-4. Calibration of model confidence.
-5. Characterization of false positives and false negatives.
-6. Robustness to instrument and population variation.
-7. External replication.
+A convincing computational result should include:
 
-## What would not constitute proof?
+- independent random seeds;
+- explicit train/evaluation separation;
+- no future-label leakage;
+- snapshot baseline;
+- trajectory baseline;
+- missing-data tests;
+- noise robustness;
+- distribution-shift tests;
+- calibration;
+- false-positive and false-negative analysis;
+- complete experiment provenance.
 
-- A high score from one model.
-- A visually convincing demo.
-- Synthetic data alone.
-- A single laboratory run.
-- Correlation without biological validation.
+## What would invalidate the hypothesis?
 
-## Long-term scientific objective
+Examples include:
 
-Develop an open, auditable computational framework that can be evaluated by researchers and, if evidence supports it, connected to validated biological measurement platforms.
+- trajectory models provide no reproducible improvement over snapshot baselines;
+- improvement disappears under small distribution changes;
+- the result depends on future information leaking into the input;
+- calibration deteriorates substantially;
+- synthetic patterns do not survive independent datasets.
+
+A negative result is a valid scientific outcome.
+
+## What the project does not claim
+
+Nexus does not currently claim to:
+
+- diagnose cancer;
+- detect every disease;
+- identify malignant cells in real time;
+- predict an individual's clinical outcome;
+- remove abnormal cells from blood;
+- provide medical treatment.
+
+Those are future questions that would require substantially different evidence.
+
+## Long-term objective
+
+Build a computational framework whose assumptions, experiments and failures are visible enough that independent researchers can reproduce and challenge them.
