@@ -1,79 +1,113 @@
 # Nexus Brain — Experiment 001
 
-## Synthetic Cell Laboratory
+## Cell State Trajectory
 
 ### Objective
 
-Determine whether a multimodal Cell Signature representation can recover controlled synthetic cellular states more reliably than individual modalities alone.
+Test whether a sequence of multimodal observations can predict a controlled future state more effectively than the current observation alone.
 
-### Experimental principle
+### Core comparison
 
-Generate synthetic observations with known ground truth. Keep the generator independent from the inference pipeline to reduce circular validation.
+**Baseline A — Snapshot**
 
-### Factors
+Uses only the current observation.
 
-Each synthetic observation may contain:
+**Baseline B — Trajectory**
 
-- morphology features;
-- surface-marker features;
-- proteomic features;
-- transcriptomic features;
-- genomic features;
-- metabolic features;
-- physical-property features;
-- temporal features.
+Uses the ordered history of observations.
 
-### Experimental groups
+The experiment is intentionally simple enough that the result can be inspected and reproduced.
 
-1. **Single-modality baselines** — one modality at a time.
-2. **Pairwise fusion** — two modalities.
-3. **Full fusion** — all available modalities.
-4. **Missing-data conditions** — randomly absent modalities.
-5. **Conflicting-signal conditions** — deliberately inconsistent modalities.
-6. **Distribution-shift conditions** — changed feature distributions between development and evaluation.
+## Synthetic world
 
-### Metrics
+Each research entity receives a latent state that evolves over time.
 
-Primary:
+The simulator produces observable modality values from that latent state while adding controlled noise.
 
-- balanced accuracy;
+The future state is hidden from the predictor.
+
+### Example
+
+```
+latent state
+   ↓
+T0 observation
+   ↓
+T1 observation
+   ↓
+T2 observation
+   ↓
+T3 observation
+   ↓
+future state
+```
+
+The predictor receives T0...T3 and must infer the future state without seeing it.
+
+## Experimental conditions
+
+1. clean observations;
+2. measurement noise;
+3. missing modalities;
+4. short trajectories;
+5. distribution shift;
+6. independent random seeds.
+
+## Primary metrics
+
+- accuracy;
+- balanced accuracy where class imbalance exists;
 - precision;
 - recall;
 - F1;
-- AUROC where appropriate;
-- calibration error;
+- calibration;
 - abstention rate.
 
-Safety-oriented:
+## Scientific controls
 
-- false-positive rate;
-- false-negative rate;
-- performance under missing modalities;
-- performance under conflicting modalities;
-- confidence calibration.
+The benchmark must report:
 
-### Success criterion
+- snapshot-only baseline;
+- trajectory baseline;
+- generator version;
+- random seed;
+- sample count;
+- noise level;
+- missingness configuration;
+- model configuration.
 
-A result is considered useful only if it is reproducible across independent synthetic seeds and remains interpretable under missing or conflicting measurements.
+## Leakage controls
 
-No synthetic result should be interpreted as evidence of clinical effectiveness.
+The following are prohibited:
 
-### Reproducibility
+- using future observations;
+- using future labels as features;
+- calculating normalization parameters from evaluation data;
+- tuning on the evaluation set.
 
-Every experiment should record:
+## Interpretation
 
-```text
+A trajectory advantage is interesting only if it is:
+
+1. reproducible;
+2. larger than expected noise;
+3. maintained across independent seeds;
+4. robust to missing/noisy observations;
+5. present without future-information leakage.
+
+No synthetic result is evidence of clinical effectiveness.
+
+## Reproducibility record
+
+```
 experiment_id
 code_version
-schema_version
 generator_version
 random_seed
+sample_count
+noise_level
+missingness
 model_version
-configuration
 metrics
 artifacts
 ```
-
-### Next implementation
-
-Create a deterministic synthetic generator and a benchmark runner that compares the current transparent fusion baseline against controlled ground truth.
