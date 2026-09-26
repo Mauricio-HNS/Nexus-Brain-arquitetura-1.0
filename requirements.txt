@@ -1,0 +1,2 @@
+# Nexus Brain 0.1 — intentionally minimal baseline
+# ML dependencies will be introduced with reproducible experiments.
