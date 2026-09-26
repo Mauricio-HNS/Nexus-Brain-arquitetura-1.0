@@ -1,22 +1,14 @@
-# Nexus Brain Documentation
+# Nexus Brain Research
 
-## Research map
+## Documents
 
 | Document | Purpose |
 |---|---|
-| [Architecture](architecture.md) | Trajectory-first system architecture |
+| [Architecture](architecture.md) | Current system architecture |
 | [Scientific Framework](scientific-framework.md) | Hypothesis, null hypothesis and evidence standard |
-| [Experiment 001](experimental-protocol.md) | First falsifiable computational experiment |
-| [Research Roadmap](research-roadmap.md) | Milestones and kill criteria |
-| [Safety Model](safety-model.md) | Uncertainty, abstention and provenance |
-| [Cell Signature](cell-signature.schema.json) | Versioned multimodal observation contract |
+| [Experiment 003](experiment-003.md) | Current adversarial experiment |
+| [Research Roadmap](research-roadmap.md) | Next research stages and kill criteria |
+| [Safety Model](safety-model.md) | Uncertainty and research-only evidence handling |
+| [Cell Signature Schema](cell-signature.schema.json) | Observation contract |
 
-## Project philosophy
-
-Nexus is not built around the assumption that the idea must work.
-
-It is built around the question:
-
-> **Can we produce evidence that the idea works better than simpler alternatives?**
-
-The repository therefore treats negative results, failed experiments and reproducibility as first-class research outputs.
+The documentation describes only the current trajectory-first research direction.
