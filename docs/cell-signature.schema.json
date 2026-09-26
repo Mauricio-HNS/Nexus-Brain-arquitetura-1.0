@@ -1,35 +1,24 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://nexus-brain.local/schema/cell-signature-1.0.json",
-  "title": "Nexus Cell Signature",
-  "description": "Research data contract for a multimodal cellular observation. Not a clinical diagnostic schema.",
+  "title": "Nexus Brain Cell Signature",
+  "description": "Research contract for one multimodal cellular observation.",
   "type": "object",
   "required": ["schemaVersion", "observationId", "modalities", "provenance"],
   "properties": {
     "schemaVersion": { "type": "string", "const": "1.0" },
     "observationId": { "type": "string", "minLength": 1 },
-    "cellType": { "type": ["string", "null"] },
     "modalities": {
       "type": "object",
       "properties": {
-        "morphology": { "type": ["object", "null"] },
-        "surfaceMarkers": { "type": ["object", "null"] },
-        "proteomics": { "type": ["object", "null"] },
-        "transcriptomics": { "type": ["object", "null"] },
-        "genomics": { "type": ["object", "null"] },
-        "metabolism": { "type": ["object", "null"] },
-        "physicalProperties": { "type": ["object", "null"] },
-        "temporal": { "type": ["object", "null"] }
-      },
-      "additionalProperties": false
-    },
-    "inference": {
-      "type": ["object", "null"],
-      "properties": {
-        "modelVersion": { "type": ["string", "null"] },
-        "classification": { "type": ["string", "null"] },
-        "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
-        "uncertainty": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+        "morphology": { "type": "object" },
+        "surfaceMarkers": { "type": "object" },
+        "proteomics": { "type": "object" },
+        "transcriptomics": { "type": "object" },
+        "genomics": { "type": "object" },
+        "metabolism": { "type": "object" },
+        "physicalProperties": { "type": "object" },
+        "temporal": { "type": "object" }
       },
       "additionalProperties": false
     },
