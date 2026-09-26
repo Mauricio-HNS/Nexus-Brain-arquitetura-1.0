@@ -1,14 +1,13 @@
 # Nexus Brain Research
 
-## Documents
+## Current documents
 
-| Document | Purpose |
-|---|---|
-| [Architecture](architecture.md) | Current system architecture |
-| [Scientific Framework](scientific-framework.md) | Hypothesis, null hypothesis and evidence standard |
-| [Experiment 003](experiment-003.md) | Current adversarial experiment |
-| [Research Roadmap](research-roadmap.md) | Next research stages and kill criteria |
-| [Safety Model](safety-model.md) | Uncertainty and research-only evidence handling |
-| [Cell Signature Schema](cell-signature.schema.json) | Observation contract |
+- [Architecture](architecture.md)
+- [Scientific Framework](scientific-framework.md)
+- [Experiment 003](experiment-003.md)
+- [Trajectory Model](trajectory-model.md)
+- [Research Roadmap](research-roadmap.md)
+- [Safety Model](safety-model.md)
+- [Cell Signature Schema](cell-signature.schema.json)
 
-The documentation describes only the current trajectory-first research direction.
+All documentation describes the current temporal trajectory research direction. Legacy experiment descriptions and snapshot-first benchmark material have been removed.
