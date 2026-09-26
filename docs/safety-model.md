@@ -1,56 +1,31 @@
-# Nexus Brain Safety Model
+# Research Safety Model
 
-Nexus is a research system. Its safety model is designed to prevent computational outputs from being mistaken for biological or clinical conclusions.
+Nexus Brain is research software.
 
-## Core states
+## Evidence states
 
 ```
-UNKNOWN
-   ↓
-OBSERVE
-   ↓
-REVIEW
-   ↓
-FLAG FOR REVIEW
+UNKNOWN → OBSERVE → REVIEW
+                    ↓
+              FLAG FOR REVIEW
 ```
 
 These states describe research evidence handling only.
 
 ## Rules
 
-- Missing confidence or uncertainty → UNKNOWN.
-- Conflicting modalities → REVIEW.
-- High uncertainty → OBSERVE.
-- Strong research signal with low uncertainty → FLAG FOR REVIEW.
-- No state authorizes treatment.
+- Missing confidence or uncertainty produces UNKNOWN.
+- Conflicting evidence produces REVIEW.
+- High uncertainty produces OBSERVE.
+- A strong research signal remains a human-review state.
+- No state authorizes treatment or autonomous intervention.
 
-## Provenance requirements
+## Provenance
 
-Every inference should retain:
+Future inference records should retain model version, data version, pipeline version, input quality, missingness, uncertainty and experiment identifier.
 
-- model version;
-- feature/trajectory pipeline version;
-- generator or dataset version;
-- input quality;
-- missing modalities;
-- confidence;
-- uncertainty;
-- timestamp;
-- decision state;
-- audit identifier.
+## Boundary
 
-## Failure philosophy
+A computational signal is not a diagnosis.
 
-The system should prefer:
-
-**abstention > unsupported certainty**
-
-A model is allowed to say:
-
-> **I do not have enough evidence.**
-
-That behavior is a feature, not a failure.
-
-## Future translation
-
-Any transition toward medical use would require independent biological validation, safety engineering, regulatory review, and appropriately designed preclinical and clinical studies.
+Any future medical translation would require independent biological validation, safety engineering and the appropriate regulatory and clinical evidence.
