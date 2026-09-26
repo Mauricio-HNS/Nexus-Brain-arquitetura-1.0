@@ -1,44 +1,79 @@
 # Nexus Brain Research Roadmap
 
-## Stage 0 — Synthetic world
+## Milestone 001 — Cell State Trajectory
 
-Goal: validate the architecture without biological claims.
+**Objective:** establish whether temporal information adds measurable predictive value over a snapshot-only representation.
 
-- Generate synthetic Cell Signatures.
-- Create normal, unknown, perturbed, and simulated target populations.
-- Test multimodal fusion.
-- Measure calibration, precision/recall, false positives, false negatives.
+Deliverables:
 
-## Stage 1 — Curated research datasets
+- deterministic synthetic generator;
+- trajectory representation;
+- snapshot baseline;
+- trajectory baseline;
+- reproducible benchmark;
+- explicit future-label isolation;
+- noise and missing-data tests.
 
-Goal: evaluate whether the same architecture can learn useful patterns from published/authorized datasets.
+## Milestone 002 — Controlled multimodal dynamics
 
-- Define inclusion criteria.
-- Normalize metadata.
-- Separate training/validation/test populations.
-- Prevent patient leakage between splits.
-- Record dataset licenses and provenance.
+Introduce multiple synthetic modalities with different signal quality and correlation structures.
 
-## Stage 2 — Laboratory observations
+Questions:
 
-Goal: connect validated measurements without making treatment claims.
+- Which modalities contribute independent information?
+- How does the system behave when one modality becomes unreliable?
+- Does temporal fusion remain useful when measurements are noisy?
 
-- Define instrument adapters.
-- Preserve raw measurements.
-- Validate repeatability.
-- Compare model outputs against expert annotations.
+## Milestone 003 — Public research datasets
 
-## Stage 3 — Multimodal longitudinal research
+Move from synthetic observations to authorized/public datasets.
 
-Goal: study whether combining modalities and time improves detection of meaningful cellular changes.
+Requirements:
 
-- Baseline modeling.
-- Temporal trajectories.
-- Distribution shift detection.
-- Uncertainty and abstention.
+- documented provenance;
+- licensing review;
+- patient-level split where applicable;
+- no leakage across train/validation/test;
+- explicit dataset versioning.
 
-## Stage 4 — Extracorporeal systems research
+## Milestone 004 — Longitudinal validation
 
-Only after the computational and laboratory evidence supports further research should the project investigate integration with microfluidic/extracorporeal platforms.
+Test whether trajectory representations generalize across:
 
-No clinical use is implied by this roadmap.
+- individuals;
+- instruments;
+- acquisition protocols;
+- laboratories;
+- biological populations.
+
+## Milestone 005 — Laboratory integration
+
+Connect validated observation adapters to real measurements.
+
+The computational hypothesis must survive independent biological measurements before any hardware concept is considered.
+
+## Milestone 006 — Nexus Cell systems research
+
+Only after computational and laboratory evidence supports the approach should research address:
+
+- high-throughput cell handling;
+- microfluidics;
+- extracorporeal circulation;
+- real-time analysis;
+- selective intervention concepts.
+
+No stage in this roadmap constitutes clinical validation.
+
+---
+
+## Kill criteria
+
+Nexus should be stopped or substantially redesigned if:
+
+1. trajectory information consistently adds no useful signal;
+2. apparent gains depend on leakage;
+3. gains disappear under realistic noise;
+4. results cannot be independently reproduced;
+5. the approach does not generalize beyond the synthetic generator.
+
+This is deliberate. The project is designed to earn its continuation through evidence.
