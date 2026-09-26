@@ -22,7 +22,7 @@ Nexus studies whether two observations that look similar at the present can cont
 
 ## Current experiment
 
-### Experiment 003 — Adversarial Synthetic World
+### Experiment 001 — Adversarial Synthetic World
 
 The current software experiment is designed to attack the hypothesis.
 
@@ -36,7 +36,7 @@ The experiment also introduces noise and missing observations.
 
 A temporal claim becomes interesting only if the apparent advantage depends on temporal structure, weakens when order is destroyed, and does not appear systematically in a world without temporal information.
 
-See [docs/experiment-003.md](docs/experiment-003.md).
+See [docs/experiment-001.md](docs/experiment-001.md).
 
 ## Architecture
 
@@ -87,12 +87,12 @@ nexus_brain/
 └── safety.py          # conservative research evidence states
 
 experiments/
-└── 003_adversarial_world.py
+└── 001_adversarial_trajectory.py
 
 docs/
 ├── architecture.md
 ├── scientific-framework.md
-├── experiment-003.md
+├── experiment-001.md
 ├── research-roadmap.md
 ├── safety-model.md
 └── cell-signature.schema.json
