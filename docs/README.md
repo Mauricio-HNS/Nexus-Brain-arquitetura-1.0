@@ -4,7 +4,7 @@
 
 - [Architecture](architecture.md)
 - [Scientific Framework](scientific-framework.md)
-- [Experiment 003](experiment-003.md)
+- [Experiment 001](experiment-001.md)
 - [Trajectory Model](trajectory-model.md)
 - [Research Roadmap](research-roadmap.md)
 - [Safety Model](safety-model.md)
